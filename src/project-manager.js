@@ -1,13 +1,20 @@
 export { projectManager };
+import { toolsManager } from "./tools";
 
 const projectManager = (function ProjectManager() {
     
     let projectsLibrary = [];
 
+    let project = {};
+
     const renderProjects = () => console.log(projectsLibrary);
 
-    const createProject = function() {
-        let project = [];
+    const createProject = (name) => {
+        project = {
+            'id' : toolsManager.generateUniqueId(),
+            'name' : name,
+            'tasks' : []
+        }
         projectsLibrary.push(project);
     }
 

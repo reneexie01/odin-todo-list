@@ -2,73 +2,55 @@ import "./style.css";
 import { projectManager } from "./project-manager.js";
 import { taskManager } from "./task-manager.js";
 
+const domManager = (function DomManager() {
+
+    const newProjectInput = document.querySelector('.input-new-project').value;
+    const submitProjectInput = document.querySelector('.submit-new-project');
+    const projectsContainer = document.querySelector('.projects-container');
+
+})()
+
 console.log('empty project library: ');
 projectManager.renderProjects(); 
 
-console.log('creating project... ');
-projectManager.createProject();
+console.log('create a project ');
+projectManager.createProject('project0');
 
-console.log('library with one project: ');
-projectManager.renderProjects();
+console.log('render project library');
+projectManager.renderProjects(); 
 
-console.log('creating project 2... ');
-projectManager.createProject();
+console.log('creating a new task...');
+taskManager.newTask('todo', 'complete todo list', '10/08/2024', 'high', 'notes for todo', 'incomplete');
 
-console.log('library with two projects: ');
-projectManager.renderProjects();
+console.log('adding to project0');
+taskManager.addToProject(projectManager.projectsLibrary[0].tasks);
 
-console.log('finding a specific project', projectManager.projectsLibrary[1]);
+console.log('render project library');
+projectManager.renderProjects(); 
 
-console.log('making new task...');
-taskManager.newTask('Odin Project', 'Finish course', '2020-01-01', 'High', 'Self-study', 'incomplete');
-
-console.log('adding task to project[1]...');
-taskManager.addToProject(projectManager.projectsLibrary[1]);
-
-console.log('library with two projects and one task in project[1]: ');
-projectManager.renderProjects();
-
-console.log('clearing task card...');
+console.log('clear taskcard');
 taskManager.clearTaskCard();
 
-console.log('making new task...');
-taskManager.newTask('Odin Project2', 'Finish course2', '2020-01-012', 'High2', 'Self-study2', 'incomplete');
+console.log('create a project ');
+projectManager.createProject('project1');
 
-console.log('adding another task to project[1]...');
-taskManager.addToProject(projectManager.projectsLibrary[1]);
+console.log('render project library');
+projectManager.renderProjects(); 
 
-console.log('library with two projects and two tasks in project[1]: ');
-projectManager.renderProjects();
+console.log('creating a new task...');
+taskManager.newTask('todo1', 'complete todo list1', '10/08/20241', 'high1', 'notes for todo1', 'incomplete1');
 
-console.log('clearing task card...');
+console.log('adding to project1');
+taskManager.addToProject(projectManager.projectsLibrary[1].tasks);
+
+console.log('clear taskcard');
 taskManager.clearTaskCard();
 
-console.log('making new task...');
-taskManager.newTask('Odin Project3', 'Finish course3', '2020-01-013', 'High3', 'Self-study3', 'incomplete');
+console.log('creating a new task...');
+taskManager.newTask('todo1', 'complete todo list1', '10/08/20241', 'high1', 'notes for todo1', 'incomplete1');
 
-console.log('adding another task to project[1]...');
-taskManager.addToProject(projectManager.projectsLibrary[0]);
+console.log('adding to project1');
+taskManager.addToProject(projectManager.projectsLibrary[1].tasks);
 
-console.log('library with two projects and two tasks in project[1] and one task in project[0]: ');
-projectManager.renderProjects();
-
-console.log('clearing task card...');
-taskManager.clearTaskCard();
-
-taskManager.editTask(projectManager.projectsLibrary[0], 0, 'due', 'changed');
-
-projectManager.renderProjects();
-
-/*
-console.log('removing task[1] from project[1]...');
-taskManager.removeTask(projectManager.projectsLibrary[1], 1, 1);
-
-console.log('library with two projects and one task in project[1] and one task in project[0]: ')
-projectManager.renderProjects();
-
-console.log('removing project[1]... ');
-projectManager.removeProject(1, 1);
-
-console.log('library with one project and one task in project[0]: ')
-projectManager.renderProjects();
-*/
+console.log('render project library');
+projectManager.renderProjects(); 
