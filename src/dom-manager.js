@@ -17,28 +17,38 @@ const domManager = (function DomManager() {
         }) 
     }
 
-    const newTask = () => {
-        
-    }
-
     const renderProjects = () => {
         clearProjectsDOM();
         projectManager.projectsLibrary.forEach((project) => {
             const container = document.querySelector('.projects-container');
 
             const element = document.createElement('div');
-            element.classList.add('project');
     
             const title = document.createElement('h2');
             title.innerHTML = project.name;
 
             const button = document.createElement('button');
-            button.classList.add('add-task-button');
             button.setAttribute('unique-id', `${project.id}`);
             button.innerHTML = 'Add task';
 
+            const ul = document.createElement('ul');
+            project.tasks.forEach((task) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                id: ${task.id},
+                task: ${task.task},
+                description: ${task.description},
+                due: ${task.due},
+                priority: ${task.priority},
+                notes: ${task.notes},
+                status: ${task.status}
+                `;
+                ul.appendChild(li);
+            })
+
             element.appendChild(title);
             element.appendChild(button);
+            element.appendChild(ul);
             container.appendChild(element);
         })
     }
@@ -52,49 +62,5 @@ const domManager = (function DomManager() {
 
 })()
 
-/*
-console.log('empty project library: ');
-projectManager.renderProjects(); 
 
-console.log('create a project ');
-projectManager.createProject('project0');
 
-console.log('render project library');
-projectManager.renderProjects(); 
-
-console.log('creating a new task...');
-taskManager.newTask('todo', 'complete todo list', '10/08/2024', 'high', 'notes for todo', 'incomplete');
-
-console.log('adding to project0');
-taskManager.addToProject(projectManager.projectsLibrary[0].tasks);
-
-console.log('render project library');
-projectManager.renderProjects(); 
-
-console.log('clear taskcard');
-taskManager.clearTaskCard();
-
-console.log('create a project ');
-projectManager.createProject('project1');
-
-console.log('render project library');
-projectManager.renderProjects(); 
-
-console.log('creating a new task...');
-taskManager.newTask('todo1', 'complete todo list1', '10/08/20241', 'high1', 'notes for todo1', 'incomplete1');
-
-console.log('adding to project1');
-taskManager.addToProject(projectManager.projectsLibrary[1].tasks);
-
-console.log('clear taskcard');
-taskManager.clearTaskCard();
-
-console.log('creating a new task...');
-taskManager.newTask('todo1', 'complete todo list1', '10/08/20241', 'high1', 'notes for todo1', 'incomplete1');
-
-console.log('adding to project1');
-taskManager.addToProject(projectManager.projectsLibrary[1].tasks);
-
-console.log('render project library');
-projectManager.renderProjects(); 
-*/
