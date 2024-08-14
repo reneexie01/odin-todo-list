@@ -1,6 +1,7 @@
 export { taskManager };
-import { toolsManager } from "./tools";
 
+import { toolsManager } from "./tools";
+import { projectManager } from "./project-manager";
 
 const taskManager = (function TaskManager() {
     
@@ -27,8 +28,8 @@ const taskManager = (function TaskManager() {
         taskCard = {};
     }
 
-    const removeTask = (project, start, deleteCount) => {
-        project.splice(start, deleteCount);
+    const removeTask = (projectId) => {
+        projectManager.projectsLibrary = projectManager.projectsLibrary.filter((project) => project.id !== projectId); //not sure if that will work
     }
 
     const editTask = (project, index, specification, replacement) => {

@@ -1,9 +1,21 @@
 export { projectManager };
+
 import { toolsManager } from "./tools";
 
 const projectManager = (function ProjectManager() {
     
-    let projectsLibrary = [];
+    let projectsLibrary = [
+        {
+            'id' : '_e4a63i5w4',
+            'name' : 'Project0',
+            'tasks' : [],
+        },
+        {
+            'id' : '_l2d5zsehd',
+            'name' : 'Project1',
+            'tasks' : [],
+        }
+    ];
 
     let project = {};
 
