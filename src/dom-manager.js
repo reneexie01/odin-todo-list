@@ -28,6 +28,7 @@ const domManager = (function DomManager() {
             title.innerHTML = project.name;
 
             const button = document.createElement('button');
+            button.classList.add('add-task');
             button.setAttribute('unique-id', `${project.id}`);
             button.innerHTML = 'Add task';
 
@@ -58,7 +59,37 @@ const domManager = (function DomManager() {
         container.innerHTML = '';
     }
 
-    return { newProject, renderProjects }
+    const openNewTaskModal = () => {
+        const button = document.querySelector('.add-task');
+        const addTaskModal = document.querySelector('.add-tasks-modal');
+
+        button.addEventListener('click', () => {
+            addTaskModal.style.display = 'block';
+        })
+    }
+
+    const closeNewTaskModal = () => {
+        const button = document.querySelector('.close-new-tasks-modal');
+        const addTaskModal = document.querySelector('.add-tasks-modal');
+
+        button.addEventListener('click', () => {
+            clearNewTaskModal();
+            addTaskModal.style.display = 'none';
+        })
+    }
+
+    const clearNewTaskModal = () => {
+        const taskInput = document.querySelector('.task');
+        const descriptionInput = document.querySelector('.description')
+        const dueInput = document.querySelector('.due');
+        const priorityInput = document.querySelector('.priority');
+        const notesInput = document.querySelector('.notes');
+        const statusInput = document.querySelector('.status');
+
+        // TODO: Clear the fields & consider changing due to date picker, and priority and status to dropdown
+    }
+
+    return { newProject, renderProjects, openNewTaskModal, closeNewTaskModal }
 
 })()
 

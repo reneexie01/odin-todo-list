@@ -8,7 +8,17 @@
 <body>
     <h1>Todo list</h1>
     <input type="text" class="input-new-project">
-    <button class="submit-new-project">New project</button>
+    <button class="submit-new-project">Add new project</button>
+    <div class="add-tasks-modal">
+        <button class="close-new-tasks-modal">x</button>
+        <label>Task: </label><input type="text" class="input-new-task" id="task">
+        <label>Description: </label><input type="text" class="input-new-task" id="description">
+        <label>Due: </label><input type="text" class="input-new-task" id="due">
+        <label>Priority: </label><input type="text" class="input-new-task" id="priority">
+        <label>Notes: </label><input type="text" class="input-new-task" id="notes">
+        <label>Status: </label><input type="text" class="input-new-task" id="status">
+        <button class="submit-new-task">Add new task</button>
+    </div>
     <div class="projects-container"></div>
 </body>
 </html>
