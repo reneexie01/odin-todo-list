@@ -79,15 +79,22 @@ const domManager = (function DomManager() {
     }
 
     const clearNewTaskModal = () => {
-        const taskInput = document.querySelector('.task');
-        const descriptionInput = document.querySelector('.description')
-        const dueInput = document.querySelector('.due');
-        const priorityInput = document.querySelector('.priority');
-        const notesInput = document.querySelector('.notes');
-        const statusInput = document.querySelector('.status');
+        const taskInput = document.querySelector('#task');
+        const descriptionInput = document.querySelector('#description')
+        const dueInput = document.querySelector('#due');
+        const priorityInput = document.querySelector('#priority');
+        const notesInput = document.querySelector('#notes');
+        const statusInput = document.querySelector('#status');
 
-        // TODO: Clear the fields & consider changing due to date picker, and priority and status to dropdown
+        taskInput.value = '';
+        descriptionInput.value = '';
+        dueInput.value = '';
+        priorityInput.value = 'medium';
+        notesInput.value = '';
+        statusInput.value = 'incomplete';
     }
+
+    // TODO: when new project added, the add task button doesn't work
 
     return { newProject, renderProjects, openNewTaskModal, closeNewTaskModal }
 
