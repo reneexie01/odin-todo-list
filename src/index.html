@@ -11,12 +11,25 @@
     <button class="submit-new-project">Add new project</button>
     <div class="add-tasks-modal">
         <button class="close-new-tasks-modal">x</button>
-        <label>Task: </label><input type="text" class="input-new-task" id="task">
-        <label>Description: </label><input type="text" class="input-new-task" id="description">
-        <label>Due: </label><input type="text" class="input-new-task" id="due">
-        <label>Priority: </label><input type="text" class="input-new-task" id="priority">
-        <label>Notes: </label><input type="text" class="input-new-task" id="notes">
-        <label>Status: </label><input type="text" class="input-new-task" id="status">
+        <label for="task">Task: </label>
+        <input name="task" type="text" class="input-new-task" id="task">
+        <label for="description">Description: </label>
+        <input name="description" type="text" class="input-new-task" id="description">
+        <label for="due">Due: </label>
+        <input name="due" type="date" class="input-new-task" id="due">
+        <label for="priority">Priority: </label>
+            <select name="priority" class="input-new-task" id="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+        <label for="notes">Notes: </label>
+        <input name="notes" type="text" class="input-new-task" id="notes">
+        <label for="status">Status: </label>
+            <select name="status" class="input-new-task" id="status">
+                <option value="incomplete">Incomplete</option>
+                <option value="complete">Complete</option>
+            </select>
         <button class="submit-new-task">Add new task</button>
     </div>
     <div class="projects-container"></div>
