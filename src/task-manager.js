@@ -2,6 +2,7 @@ export { taskManager };
 
 import { toolsManager } from "./tools";
 import { projectManager } from "./project-manager";
+import { domManager } from "./dom-manager";
 
 const taskManager = (function TaskManager() {
     
@@ -21,7 +22,7 @@ const taskManager = (function TaskManager() {
     }
 
     const addToProject = (project) => {
-        project.push(taskCard);
+        project.push(taskCard); // need to get domProjectId here to push the task to the right project
     }
 
     const clearTaskCard = () => {

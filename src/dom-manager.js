@@ -61,13 +61,18 @@ const domManager = (function DomManager() {
         container.innerHTML = '';
     }
 
+    let domProjectId;
+
     const openNewTaskModal = () => {
         const addTaskButton = document.querySelectorAll('.add-task');
         const addTaskModal = document.querySelector('.add-tasks-modal');
 
         addTaskButton.forEach((button) => {
-            button.addEventListener('click', () => {
+            button.addEventListener('click', (e) => {
                 addTaskModal.style.display = 'block';
+                const projectId = e.target.getAttribute('unique-id');
+                console.log(projectId); // need to pass this to the task manager
+                domProjectId = projectId;
             })
         })
     }
@@ -98,7 +103,7 @@ const domManager = (function DomManager() {
         statusInput.value = 'incomplete';
     }
 
-    return { newProject, renderProjects, openNewTaskModal, closeNewTaskModal }
+    return { newProject, renderProjects }
 
 })()
 
