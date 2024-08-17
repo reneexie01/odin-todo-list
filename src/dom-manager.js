@@ -52,6 +52,8 @@ const domManager = (function DomManager() {
             element.appendChild(ul);
             container.appendChild(element);
         })
+        openNewTaskModal();
+        closeNewTaskModal();
     }
 
     const clearProjectsDOM = () => {
@@ -60,11 +62,13 @@ const domManager = (function DomManager() {
     }
 
     const openNewTaskModal = () => {
-        const button = document.querySelector('.add-task');
+        const addTaskButton = document.querySelectorAll('.add-task');
         const addTaskModal = document.querySelector('.add-tasks-modal');
 
-        button.addEventListener('click', () => {
-            addTaskModal.style.display = 'block';
+        addTaskButton.forEach((button) => {
+            button.addEventListener('click', () => {
+                addTaskModal.style.display = 'block';
+            })
         })
     }
 
@@ -93,8 +97,6 @@ const domManager = (function DomManager() {
         notesInput.value = '';
         statusInput.value = 'incomplete';
     }
-
-    // TODO: when new project added, the add task button doesn't work
 
     return { newProject, renderProjects, openNewTaskModal, closeNewTaskModal }
 
