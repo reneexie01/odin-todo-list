@@ -71,8 +71,8 @@ const domManager = (function DomManager() {
             button.addEventListener('click', (e) => {
                 addTaskModal.style.display = 'block';
                 const projectId = e.target.getAttribute('unique-id');
-                console.log(projectId); // need to pass this to the task manager
                 domProjectId = projectId;
+                console.log('dom:', domProjectId) // TOD: Pass this to taskManager
             })
         })
     }
@@ -103,7 +103,25 @@ const domManager = (function DomManager() {
         statusInput.value = 'incomplete';
     }
 
-    return { newProject, renderProjects }
+    let taskCard;
+
+    const addNewTask = () => {
+        const addNewTaskSubmit = document.querySelector('.submit-new-task');
+
+        addNewTaskSubmit.addEventListener('click', () => {
+            const taskInputValue = document.querySelector('#task').value;
+            const descriptionInputValue = document.querySelector('#description').value;
+            const dueInputValue = document.querySelector('#due').value;
+            const priorityInputValue = document.querySelector('#priority').value;
+            const notesInputValue = document.querySelector('#notes').value;
+            const statusInputValue = document.querySelector('#status').value;
+
+            taskCard = taskManager.newTask(taskInputValue, descriptionInputValue, dueInputValue, priorityInputValue, notesInputValue, statusInputValue);
+            console.log(taskCard)
+        })
+    }
+
+    return { newProject, renderProjects, domProjectId, addNewTask }
 
 })()
 

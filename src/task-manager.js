@@ -6,7 +6,7 @@ import { domManager } from "./dom-manager";
 
 const taskManager = (function TaskManager() {
     
-    let taskCard = {};
+    // let taskCard = {}; // Replaced with DOM taskCard
 
     const newTask = (task, description, due, priority, notes, status) => {
         taskCard = {
@@ -22,7 +22,7 @@ const taskManager = (function TaskManager() {
     }
 
     const addToProject = (project) => {
-        project.push(taskCard); // need to get domProjectId here to push the task to the right project
+        project.push(taskCard); // TODO: Need to get domProjectId here to push the task to the right project
     }
 
     const clearTaskCard = () => {
