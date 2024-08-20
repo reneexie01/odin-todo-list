@@ -1,3 +1,3 @@
-.add-tasks-modal {
+.add-tasks-modal, .edit-tasks-modal {
     display: none;
 }

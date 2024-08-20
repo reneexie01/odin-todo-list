@@ -60,25 +60,9 @@ const domManager = (function DomManager() {
             container.appendChild(element);
         })
         openNewTaskModal();
-        closeButtonTaskModal();
+        closeButtonNewTaskModal();
+        closeButtonEditTaskModal();
         editTask();
-    }
-
-    const editTask = () => {
-        const editTaskButton = document.querySelectorAll('.edit-task');
-        const addTaskModal = document.querySelector('.add-tasks-modal');
-
-        editTaskButton.forEach((button) => {
-            button.addEventListener('click', (e) => {
-                addTaskModal.style.display = 'block';
-                const projectId = e.target.getAttribute('parent-project-id');
-                const taskId = e.target.getAttribute('unique-task-id');
-                console.log('projectId', projectId);
-                console.log('taskId', taskId);
-                taskManager.editTask(projectId, taskId);
-                
-            })
-        })
     }
 
     const clearProjectsDOM = () => {
@@ -88,6 +72,7 @@ const domManager = (function DomManager() {
 
     let domProjectId;
 
+    // New task modal functions
     const openNewTaskModal = () => {
         const addTaskButton = document.querySelectorAll('.add-task');
         const addTaskModal = document.querySelector('.add-tasks-modal');
@@ -102,15 +87,15 @@ const domManager = (function DomManager() {
         })
     }
 
-    const closeButtonTaskModal = () => {
+    const closeButtonNewTaskModal = () => {
         const button = document.querySelector('.close-new-tasks-modal');
 
         button.addEventListener('click', () => {
-            closeTaskMoal();
+            closeNewTaskModal();
         })
     }
 
-    const closeTaskMoal = () => {
+    const closeNewTaskModal = () => {
         const addTaskModal = document.querySelector('.add-tasks-modal');
 
         clearNewTaskModal();
@@ -151,8 +136,44 @@ const domManager = (function DomManager() {
 
             taskManager.addToProject(domProjectId, taskCard);
             renderProjects();
-            closeTaskMoal();
+            closeNewTaskModal();
         })
+    }
+
+    // Edit task modal functions
+    const editTask = () => {
+        const editTaskButton = document.querySelectorAll('.edit-task');
+        const editTaskModal = document.querySelector('.edit-tasks-modal');
+
+        editTaskButton.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                editTaskModal.style.display = 'block';
+                const projectId = e.target.getAttribute('parent-project-id');
+                const taskId = e.target.getAttribute('unique-task-id');
+                console.log('projectId', projectId);
+                console.log('taskId', taskId);
+                taskManager.editTask(projectId, taskId);
+            })
+        })
+    } 
+
+    const closeButtonEditTaskModal = () => {
+        const button = document.querySelector('.close-edit-tasks-modal');
+
+        button.addEventListener('click', () => {
+            closeEditTaskModal();
+        })
+    }
+
+    const closeEditTaskModal = () => {
+        const addTaskModal = document.querySelector('.edit-tasks-modal');
+        addTaskModal.style.display = 'none';
+    }
+
+    const submitEditedTask = () => {
+        const submitEditTaskButton = document.querySelectorAll('.submit-edit-task');
+
+        //TODO: Need to submit to the correct task to update it.
     }
 
     return { newProject, renderProjects, domProjectId, addNewTask, taskCard }

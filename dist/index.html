@@ -9,6 +9,7 @@
     <h1>Todo list</h1>
     <input type="text" class="input-new-project">
     <button class="submit-new-project">Add new project</button>
+
     <div class="add-tasks-modal">
         <button class="close-new-tasks-modal">x</button>
         <label for="task">Task: </label>
@@ -32,6 +33,31 @@
             </select>
         <button class="submit-new-task">Add new task</button>
     </div>
+
+    <div class="edit-tasks-modal">
+        <button class="close-edit-tasks-modal">x</button>
+        <label for="edit-task">Task: </label>
+        <input name="edit-task" type="text" class="input-edit-task" id="edit-task">
+        <label for="edit-description">Description: </label>
+        <input name="edit-description" type="text" class="input-edit-task" id="edit-description">
+        <label for="edit-due">Due: </label>
+        <input name="edit-due" type="date" class="input-edit-task" id="edit-due">
+        <label for="edit-priority">Priority: </label>
+            <select name="edit-priority" class="input-edit-task" id="edit-priority">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+            </select>
+        <label for="edit-notes">Notes: </label>
+        <input name="edit-notes" type="text" class="input-edit-task" id="edit-notes">
+        <label for="edit-status">Status: </label>
+            <select name="edit-status" class="input-edit-task" id="edit-status">
+                <option value="incomplete" selected>Incomplete</option>
+                <option value="complete">Complete</option>
+            </select>
+        <button class="submit-edit-task">Edit task</button>
+    </div>
+
     <div class="projects-container"></div>
 </body>
 </html>

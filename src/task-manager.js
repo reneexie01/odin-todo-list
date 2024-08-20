@@ -34,12 +34,12 @@ const taskManager = (function TaskManager() {
 
     const editTask = (projectId, taskId) => {
 
-        const taskInput = document.querySelector('#task');
-        const descriptionInput = document.querySelector('#description');
-        const dueInput = document.querySelector('#due');
-        const priorityInput = document.querySelector('#priority');
-        const notesInput = document.querySelector('#notes');
-        const statusInput = document.querySelector('#status');
+        const taskInput = document.querySelector('#edit-task');
+        const descriptionInput = document.querySelector('#edit-description');
+        const dueInput = document.querySelector('#edit-due');
+        const priorityInput = document.querySelector('#edit-priority');
+        const notesInput = document.querySelector('#edit-notes');
+        const statusInput = document.querySelector('#edit-status');
 
         let project;
         project = projectManager.projectsLibrary.filter((project) => project.id === projectId);
