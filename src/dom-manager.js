@@ -53,7 +53,7 @@ const domManager = (function DomManager() {
             container.appendChild(element);
         })
         openNewTaskModal();
-        closeNewTaskModal();
+        closeButtonTaskModal();
     }
 
     const clearProjectsDOM = () => {
@@ -77,14 +77,19 @@ const domManager = (function DomManager() {
         })
     }
 
-    const closeNewTaskModal = () => {
+    const closeButtonTaskModal = () => {
         const button = document.querySelector('.close-new-tasks-modal');
-        const addTaskModal = document.querySelector('.add-tasks-modal');
 
         button.addEventListener('click', () => {
-            clearNewTaskModal();
-            addTaskModal.style.display = 'none';
+            closeTaskMoal();
         })
+    }
+
+    const closeTaskMoal = () => {
+        const addTaskModal = document.querySelector('.add-tasks-modal');
+
+        clearNewTaskModal();
+        addTaskModal.style.display = 'none';
     }
 
     const clearNewTaskModal = () => {
@@ -117,11 +122,15 @@ const domManager = (function DomManager() {
             const statusInputValue = document.querySelector('#status').value;
 
             taskCard = taskManager.newTask(taskInputValue, descriptionInputValue, dueInputValue, priorityInputValue, notesInputValue, statusInputValue);
-            console.log(taskCard)
+            console.log('taskCard', taskCard)
+
+            taskManager.addToProject(domProjectId, taskCard);
+            renderProjects();
+            closeTaskMoal();
         })
     }
 
-    return { newProject, renderProjects, domProjectId, addNewTask }
+    return { newProject, renderProjects, domProjectId, addNewTask, taskCard }
 
 })()
 

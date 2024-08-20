@@ -9,7 +9,7 @@ const taskManager = (function TaskManager() {
     // let taskCard = {}; // Replaced with DOM taskCard
 
     const newTask = (task, description, due, priority, notes, status) => {
-        taskCard = {
+        let taskCard = {
             'id' : toolsManager.generateUniqueId(),
             'task' : task, 
             'description' : description, 
@@ -21,8 +21,10 @@ const taskManager = (function TaskManager() {
         return taskCard;
     }
 
-    const addToProject = (project) => {
-        project.push(taskCard); // TODO: Need to get domProjectId here to push the task to the right project
+    const addToProject = (projectId, taskItem) => {
+        let project;
+        project = projectManager.projectsLibrary.filter((project) => project.id === projectId)
+        project[0].tasks.push(taskItem);
     }
 
     const clearTaskCard = () => {
