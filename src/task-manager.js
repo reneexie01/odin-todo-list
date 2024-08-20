@@ -2,11 +2,8 @@ export { taskManager };
 
 import { toolsManager } from "./tools";
 import { projectManager } from "./project-manager";
-import { domManager } from "./dom-manager";
 
 const taskManager = (function TaskManager() {
-    
-    // let taskCard = {}; // Replaced with DOM taskCard
 
     const newTask = (task, description, due, priority, notes, status) => {
         let taskCard = {
@@ -33,10 +30,32 @@ const taskManager = (function TaskManager() {
 
     const removeTask = (projectId) => {
         projectManager.projectsLibrary = projectManager.projectsLibrary.filter((project) => project.id !== projectId); //not sure if that will work
-    }
+    } // TODO: Need to fix this
 
-    const editTask = (project, index, specification, replacement) => {
-        project[index][`${specification}`] = replacement;
+    const editTask = (projectId, taskId) => {
+
+        const taskInput = document.querySelector('#task');
+        const descriptionInput = document.querySelector('#description');
+        const dueInput = document.querySelector('#due');
+        const priorityInput = document.querySelector('#priority');
+        const notesInput = document.querySelector('#notes');
+        const statusInput = document.querySelector('#status');
+
+        let project;
+        project = projectManager.projectsLibrary.filter((project) => project.id === projectId);
+
+        for (let i = 0; i < project[0].tasks.length; i++) {
+            let selectedTask = project[0].tasks[i];
+
+            if (selectedTask.id === taskId) {
+                taskInput.value = selectedTask.task;
+                descriptionInput.value = selectedTask.description;
+                dueInput.value = selectedTask.due;
+                priorityInput.value = selectedTask.priority;
+                notesInput.value = selectedTask.notes;
+                statusInput.value = selectedTask.status;
+            } //TODO: Need to allow editing to replace values in the same task
+        }
     }
 
     return { newTask, addToProject, clearTaskCard, removeTask, editTask }

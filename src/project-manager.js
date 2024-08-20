@@ -13,19 +13,19 @@ const projectManager = (function ProjectManager() {
                     'id' : '_in3h7kmle',
                     'task' : 'Todo project0',
                     'description' : 'Complete todo list0',
-                    'due' : '01/09/20240',
-                    'priority' : 'High0',
-                    'notes' : 'Notes for Todo project0',
-                    'status' : 'Incomplete0'
+                    'due' : '2024-08-08',
+                    'priority' : 'high',
+                    'notes' : 'Notes for Todo project',
+                    'status' : 'incomplete'
                 },
                 {
                     'id' : '_la9ri6h7u',
                     'task' : 'Todo project1',
-                    'description' : 'Complete todo list1',
-                    'due' : '01/09/20241',
-                    'priority' : 'High1',
+                    'description' : 'Complete todo list',
+                    'due' : '2024-08-08',
+                    'priority' : 'high',
                     'notes' : 'Notes for Todo project1',
-                    'status' : 'Incomplete1'
+                    'status' : 'incomplete'
                 }
             ],
         },
@@ -37,10 +37,10 @@ const projectManager = (function ProjectManager() {
                     'id' : '_jm3i7lnmf',
                     'task' : 'Todo project2',
                     'description' : 'Complete todo list2',
-                    'due' : '01/09/20242',
-                    'priority' : 'High2',
+                    'due' : '2024-08-08',
+                    'priority' : 'high',
                     'notes' : 'Notes for Todo project2',
-                    'status' : 'Incomplete2'
+                    'status' : 'incomplete'
                 },
             ],
         }

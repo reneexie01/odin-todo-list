@@ -27,10 +27,10 @@ const domManager = (function DomManager() {
             const title = document.createElement('h2');
             title.innerHTML = project.name;
 
-            const button = document.createElement('button');
-            button.classList.add('add-task');
-            button.setAttribute('unique-id', `${project.id}`);
-            button.innerHTML = 'Add task';
+            const projectButton = document.createElement('button');
+            projectButton.classList.add('add-task');
+            projectButton.setAttribute('unique-project-id', `${project.id}`);
+            projectButton.innerHTML = 'Add task';
 
             const ul = document.createElement('ul');
             project.tasks.forEach((task) => {
@@ -45,15 +45,40 @@ const domManager = (function DomManager() {
                 status: ${task.status}
                 `;
                 ul.appendChild(li);
+
+                const taskButton = document.createElement('button');
+                taskButton.classList.add('edit-task');
+                taskButton.innerHTML = 'Edit';
+                taskButton.setAttribute('unique-task-id', `${task.id}`);
+                taskButton.setAttribute('parent-project-id', `${project.id}`);
+                ul.appendChild(taskButton);
             })
 
             element.appendChild(title);
-            element.appendChild(button);
+            element.appendChild(projectButton);
             element.appendChild(ul);
             container.appendChild(element);
         })
         openNewTaskModal();
         closeButtonTaskModal();
+        editTask();
+    }
+
+    const editTask = () => {
+        const editTaskButton = document.querySelectorAll('.edit-task');
+        const addTaskModal = document.querySelector('.add-tasks-modal');
+
+        editTaskButton.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                addTaskModal.style.display = 'block';
+                const projectId = e.target.getAttribute('parent-project-id');
+                const taskId = e.target.getAttribute('unique-task-id');
+                console.log('projectId', projectId);
+                console.log('taskId', taskId);
+                taskManager.editTask(projectId, taskId);
+                
+            })
+        })
     }
 
     const clearProjectsDOM = () => {
@@ -70,9 +95,9 @@ const domManager = (function DomManager() {
         addTaskButton.forEach((button) => {
             button.addEventListener('click', (e) => {
                 addTaskModal.style.display = 'block';
-                const projectId = e.target.getAttribute('unique-id');
+
+                const projectId = e.target.getAttribute('unique-project-id');
                 domProjectId = projectId;
-                console.log('dom:', domProjectId) // TOD: Pass this to taskManager
             })
         })
     }
