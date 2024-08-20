@@ -54,10 +54,35 @@ const taskManager = (function TaskManager() {
                 priorityInput.value = selectedTask.priority;
                 notesInput.value = selectedTask.notes;
                 statusInput.value = selectedTask.status;
-            } //TODO: Need to allow editing to replace values in the same task
+            }
         }
     }
 
-    return { newTask, addToProject, clearTaskCard, removeTask, editTask }
+    const updateTask = (projectId, taskId) => {
+        const taskInput = document.querySelector('#edit-task');
+        const descriptionInput = document.querySelector('#edit-description');
+        const dueInput = document.querySelector('#edit-due');
+        const priorityInput = document.querySelector('#edit-priority');
+        const notesInput = document.querySelector('#edit-notes');
+        const statusInput = document.querySelector('#edit-status');
+
+        let project;
+        project = projectManager.projectsLibrary.filter((project) => project.id === projectId);
+
+        for (let i = 0; i < project[0].tasks.length; i++) {
+            let selectedTask = project[0].tasks[i];
+
+            if (selectedTask.id === taskId) {
+                selectedTask.task = taskInput.value;
+                selectedTask.description = descriptionInput.value;
+                selectedTask.due = dueInput.value;
+                selectedTask.priority = priorityInput.value;
+                selectedTask.notes = notesInput.value;
+                selectedTask.status = statusInput.value;
+            } 
+        }
+    }
+
+    return { newTask, addToProject, clearTaskCard, removeTask, editTask, updateTask }
     
 })()

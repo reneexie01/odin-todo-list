@@ -25,7 +25,7 @@ const domManager = (function DomManager() {
             const element = document.createElement('div');
     
             const title = document.createElement('h2');
-            title.innerHTML = project.name;
+            title.innerHTML = `${project.name} id: ${project.id}`;
 
             const projectButton = document.createElement('button');
             projectButton.classList.add('add-task');
@@ -145,14 +145,16 @@ const domManager = (function DomManager() {
         const editTaskButton = document.querySelectorAll('.edit-task');
         const editTaskModal = document.querySelector('.edit-tasks-modal');
 
+        let projectId;
+        let taskId;
+
         editTaskButton.forEach((button) => {
             button.addEventListener('click', (e) => {
                 editTaskModal.style.display = 'block';
-                const projectId = e.target.getAttribute('parent-project-id');
-                const taskId = e.target.getAttribute('unique-task-id');
-                console.log('projectId', projectId);
-                console.log('taskId', taskId);
+                projectId = e.target.getAttribute('parent-project-id');
+                taskId = e.target.getAttribute('unique-task-id');
                 taskManager.editTask(projectId, taskId);
+                submitEditedTask(projectId, taskId);
             })
         })
     } 
@@ -170,10 +172,15 @@ const domManager = (function DomManager() {
         addTaskModal.style.display = 'none';
     }
 
-    const submitEditedTask = () => {
-        const submitEditTaskButton = document.querySelectorAll('.submit-edit-task');
-
-        //TODO: Need to submit to the correct task to update it.
+    const submitEditedTask = (projectId, taskId) => {
+        const submitEditTaskButton = document.querySelector('.submit-edit-task');
+        submitEditTaskButton.addEventListener('click', () => {
+            taskManager.updateTask(projectId, taskId);
+            renderProjects(); //TODO: After editing once, the following edits are also applied to previous edited tasks (there are two projectIds and taskIds)
+            closeEditTaskModal();
+            console.log('projectId', projectId);
+            console.log('taskId', taskId);
+        })
     }
 
     return { newProject, renderProjects, domProjectId, addNewTask, taskCard }
