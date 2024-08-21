@@ -28,9 +28,18 @@ const taskManager = (function TaskManager() {
         taskCard = {};
     }
 
-    const removeTask = (projectId) => {
-        projectManager.projectsLibrary = projectManager.projectsLibrary.filter((project) => project.id !== projectId); //not sure if that will work
-    } // TODO: Need to fix this
+    const removeTask = (projectId, taskId) => {
+        let project;
+        project = projectManager.projectsLibrary.filter((project) => project.id === projectId);
+        
+        for (let i = 0; i< project[0].tasks.length; i++) {
+            let selectedTask = project[0].tasks[i];
+
+            if (selectedTask.id === taskId) {
+                project[0].tasks.splice(i, 1);
+            }
+        }
+        }
 
     const editTask = (projectId, taskId) => {
 
@@ -83,6 +92,6 @@ const taskManager = (function TaskManager() {
         }
     }
 
-    return { newTask, addToProject, clearTaskCard, removeTask, editTask, updateTask }
+    return { newTask, addToProject, clearTaskCard, editTask, updateTask, removeTask }
     
 })()

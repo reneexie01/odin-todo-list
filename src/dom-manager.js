@@ -32,6 +32,11 @@ const domManager = (function DomManager() {
             projectButton.setAttribute('unique-project-id', `${project.id}`);
             projectButton.innerHTML = 'Add task';
 
+            const deleteProjectButton = document.createElement('button');
+            deleteProjectButton.classList.add('delete-project');
+            deleteProjectButton.setAttribute('unique-project-id', `${project.id}`);
+            deleteProjectButton.innerHTML = 'Delete project';
+
             const ul = document.createElement('ul');
             project.tasks.forEach((task) => {
                 const li = document.createElement('li');
@@ -52,10 +57,18 @@ const domManager = (function DomManager() {
                 taskButton.setAttribute('unique-task-id', `${task.id}`);
                 taskButton.setAttribute('parent-project-id', `${project.id}`);
                 ul.appendChild(taskButton);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('delete-task');
+                deleteButton.innerHTML = 'Delete task';
+                deleteButton.setAttribute('unique-task-id', `${task.id}`);
+                deleteButton.setAttribute('parent-project-id', `${project.id}`);
+                ul.appendChild(deleteButton);
             })
 
             element.appendChild(title);
             element.appendChild(projectButton);
+            element.appendChild(deleteProjectButton);
             element.appendChild(ul);
             container.appendChild(element);
         })
@@ -64,6 +77,7 @@ const domManager = (function DomManager() {
         closeButtonEditTaskModal();
         editTask();
         submitEditedTask();
+        deleteTask();
     }
 
     const clearProjectsDOM = () => {
@@ -180,6 +194,22 @@ const domManager = (function DomManager() {
             closeEditTaskModal();
         })
     }
+
+    //TODO: Add delete task functionality
+    
+    const deleteTask = () => {
+        const deleteTaskButton = document.querySelectorAll('.delete-task');
+
+        deleteTaskButton.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                projectId = e.target.getAttribute('parent-project-id');
+                taskId = e.target.getAttribute('unique-task-id');
+                taskManager.removeTask(projectId, taskId)
+                renderProjects();
+            })
+        })
+    }
+    //TODO: Add delete project functionality
 
     return { newProject, renderProjects, domProjectId, addNewTask, taskCard, submitEditedTask }
 
