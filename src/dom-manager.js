@@ -63,6 +63,7 @@ const domManager = (function DomManager() {
         closeButtonNewTaskModal();
         closeButtonEditTaskModal();
         editTask();
+        submitEditedTask();
     }
 
     const clearProjectsDOM = () => {
@@ -140,13 +141,13 @@ const domManager = (function DomManager() {
         })
     }
 
+    let projectId = null;
+    let taskId = null;
+
     // Edit task modal functions
     const editTask = () => {
         const editTaskButton = document.querySelectorAll('.edit-task');
         const editTaskModal = document.querySelector('.edit-tasks-modal');
-
-        let projectId;
-        let taskId;
 
         editTaskButton.forEach((button) => {
             button.addEventListener('click', (e) => {
@@ -154,7 +155,6 @@ const domManager = (function DomManager() {
                 projectId = e.target.getAttribute('parent-project-id');
                 taskId = e.target.getAttribute('unique-task-id');
                 taskManager.editTask(projectId, taskId);
-                submitEditedTask(projectId, taskId);
             })
         })
     } 
@@ -172,18 +172,16 @@ const domManager = (function DomManager() {
         addTaskModal.style.display = 'none';
     }
 
-    const submitEditedTask = (projectId, taskId) => {
+    const submitEditedTask = () => {
         const submitEditTaskButton = document.querySelector('.submit-edit-task');
         submitEditTaskButton.addEventListener('click', () => {
             taskManager.updateTask(projectId, taskId);
-            renderProjects(); //TODO: After editing once, the following edits are also applied to previous edited tasks (there are two projectIds and taskIds)
+            renderProjects();
             closeEditTaskModal();
-            console.log('projectId', projectId);
-            console.log('taskId', taskId);
         })
     }
 
-    return { newProject, renderProjects, domProjectId, addNewTask, taskCard }
+    return { newProject, renderProjects, domProjectId, addNewTask, taskCard, submitEditedTask }
 
 })()
 
