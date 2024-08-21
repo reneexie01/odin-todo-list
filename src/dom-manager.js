@@ -13,7 +13,7 @@ const domManager = (function DomManager() {
         submitProjectInput.addEventListener('click', () => {
             projectManager.createProject(newProjectInput.value);
             projectManager.renderProjects();
-            domManager.renderProjects();
+            renderProjects();
         }) 
     }
 
@@ -64,20 +64,22 @@ const domManager = (function DomManager() {
                 deleteButton.setAttribute('unique-task-id', `${task.id}`);
                 deleteButton.setAttribute('parent-project-id', `${project.id}`);
                 ul.appendChild(deleteButton);
-            })
+            });
 
             element.appendChild(title);
             element.appendChild(projectButton);
             element.appendChild(deleteProjectButton);
             element.appendChild(ul);
             container.appendChild(element);
-        })
+        });
+
         openNewTaskModal();
         closeButtonNewTaskModal();
         closeButtonEditTaskModal();
         editTask();
         submitEditedTask();
         deleteTask();
+        deleteProject();
     }
 
     const clearProjectsDOM = () => {
@@ -194,8 +196,6 @@ const domManager = (function DomManager() {
             closeEditTaskModal();
         })
     }
-
-    //TODO: Add delete task functionality
     
     const deleteTask = () => {
         const deleteTaskButton = document.querySelectorAll('.delete-task');
@@ -209,7 +209,18 @@ const domManager = (function DomManager() {
             })
         })
     }
-    //TODO: Add delete project functionality
+
+    const deleteProject = () => {
+        const deleteProjectButton = document.querySelectorAll('.delete-project');
+
+        deleteProjectButton.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                projectId = e.target.getAttribute('unique-project-id');
+                projectManager.removeProject(projectId);
+                renderProjects(); // This is not rendering
+            })
+        })
+    }
 
     return { newProject, renderProjects, domProjectId, addNewTask, taskCard, submitEditedTask }
 

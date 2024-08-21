@@ -59,8 +59,9 @@ const projectManager = (function ProjectManager() {
         projectsLibrary.push(project);
     }
 
-    const removeProject = (start, deleteCount) => {
-        projectsLibrary.splice(start, deleteCount);
+    const removeProject = (projectId) => {
+        projectsLibrary = projectsLibrary.filter((project) => project.id !== projectId);
+        console.log(projectsLibrary);
     }
 
     return { renderProjects, createProject, projectsLibrary, removeProject };

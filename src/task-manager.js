@@ -32,7 +32,7 @@ const taskManager = (function TaskManager() {
         let project;
         project = projectManager.projectsLibrary.filter((project) => project.id === projectId);
         
-        for (let i = 0; i< project[0].tasks.length; i++) {
+        for (let i = 0; i < project[0].tasks.length; i++) {
             let selectedTask = project[0].tasks[i];
 
             if (selectedTask.id === taskId) {
