@@ -216,8 +216,9 @@ const domManager = (function DomManager() {
         deleteProjectButton.forEach((button) => {
             button.addEventListener('click', (e) => {
                 projectId = e.target.getAttribute('unique-project-id');
-                projectManager.removeProject(projectId);
-                renderProjects(); // This is not rendering
+                let projects = projectManager.removeProject(projectId);
+                projectManager.projectsLibrary = projects;
+                renderProjects();
             })
         })
     }

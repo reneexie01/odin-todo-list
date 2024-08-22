@@ -60,8 +60,9 @@ const projectManager = (function ProjectManager() {
     }
 
     const removeProject = (projectId) => {
-        projectsLibrary = projectsLibrary.filter((project) => project.id !== projectId);
-        console.log(projectsLibrary);
+        let projects = projectsLibrary.filter((project) => project.id !== projectId);
+        projectsLibrary = projects;
+        return projectsLibrary;
     }
 
     return { renderProjects, createProject, projectsLibrary, removeProject };
