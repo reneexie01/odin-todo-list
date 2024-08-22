@@ -9,11 +9,20 @@ const domManager = (function DomManager() {
     const newProject = () => {
         const newProjectInput = document.querySelector('.input-new-project');
         const submitProjectInput = document.querySelector('.submit-new-project');
+        const submitProjectInputError = document.querySelector('.submit-new-project-error');
 
         submitProjectInput.addEventListener('click', () => {
-            projectManager.createProject(newProjectInput.value);
-            projectManager.renderProjects();
-            renderProjects();
+            if (newProjectInput.value === '') {
+                console.log(`Add a project name`)
+                submitProjectInputError.innerHTML = `Add a project name`
+                return;
+            } else {
+                projectManager.createProject(newProjectInput.value);
+                projectManager.renderProjects();
+                renderProjects();
+                newProjectInput.value = '';
+                submitProjectInputError.innerHTML = ``;
+            }
         }) 
     }
 
@@ -139,8 +148,10 @@ const domManager = (function DomManager() {
 
     const addNewTask = () => {
         const addNewTaskSubmit = document.querySelector('.submit-new-task');
+        const submitNewTaskError = document.querySelector('.submit-new-task-error');
 
         addNewTaskSubmit.addEventListener('click', () => {
+
             const taskInputValue = document.querySelector('#task').value;
             const descriptionInputValue = document.querySelector('#description').value;
             const dueInputValue = document.querySelector('#due').value;
@@ -148,12 +159,19 @@ const domManager = (function DomManager() {
             const notesInputValue = document.querySelector('#notes').value;
             const statusInputValue = document.querySelector('#status').value;
 
-            taskCard = taskManager.newTask(taskInputValue, descriptionInputValue, dueInputValue, priorityInputValue, notesInputValue, statusInputValue);
-            console.log('taskCard', taskCard)
+            if (taskInputValue === '' || descriptionInputValue === '' || dueInputValue === '') {
+                submitNewTaskError.innerHTML = `Requires at least a task name, description, and due date`;
+                return;
+            } else {
+                taskCard = taskManager.newTask(taskInputValue, descriptionInputValue, dueInputValue, priorityInputValue, notesInputValue, statusInputValue);
+                console.log('taskCard', taskCard)
+    
+                taskManager.addToProject(domProjectId, taskCard);
+                renderProjects();
+                closeNewTaskModal();
 
-            taskManager.addToProject(domProjectId, taskCard);
-            renderProjects();
-            closeNewTaskModal();
+                submitNewTaskError.innerHTML = ``;
+            }
         })
     }
 
