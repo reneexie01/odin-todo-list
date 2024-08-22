@@ -5,6 +5,7 @@ import { toolsManager } from "./tools";
 const projectManager = (function ProjectManager() {
     
     let projectsLibrary = [
+        /*
         {
             'id' : '_e4a63i5w4',
             'name' : 'Project0',
@@ -44,6 +45,7 @@ const projectManager = (function ProjectManager() {
                 },
             ],
         }
+            */
     ];
 
     let project = {};
@@ -57,6 +59,7 @@ const projectManager = (function ProjectManager() {
             'tasks' : []
         }
         projectsLibrary.push(project);
+        return project;
     }
 
     const removeProject = (projectId) => {
@@ -65,5 +68,9 @@ const projectManager = (function ProjectManager() {
         return projectsLibrary;
     }
 
-    return { renderProjects, createProject, projectsLibrary, removeProject };
+    const clearProjects = () => {
+        projectsLibrary.length = 0;
+    }
+
+    return { renderProjects, createProject, projectsLibrary, removeProject, clearProjects };
 })();

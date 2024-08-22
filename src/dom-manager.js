@@ -17,8 +17,18 @@ const domManager = (function DomManager() {
                 submitProjectInputError.innerHTML = `Add a project name`
                 return;
             } else {
+                /*
                 projectManager.createProject(newProjectInput.value);
                 projectManager.renderProjects();
+                renderProjects();
+                newProjectInput.value = '';
+                submitProjectInputError.innerHTML = ``;
+                */
+                let newProjectSubmission = projectManager.createProject(newProjectInput.value);
+                console.log('newProjectSubmission', newProjectSubmission)
+                addProjectToLocalStorage(newProjectSubmission);
+                projectManager.clearProjects();
+                loadProjectFromLocalStorage();
                 renderProjects();
                 newProjectInput.value = '';
                 submitProjectInputError.innerHTML = ``;
@@ -26,8 +36,21 @@ const domManager = (function DomManager() {
         }) 
     }
 
+    const addProjectToLocalStorage = (project) => {
+        let projects = JSON.parse(localStorage.getItem('projectsLibrary')) || [];
+        projects.push(project);
+        localStorage.setItem('projectsLibrary', JSON.stringify(projects));
+    }
+
+    const loadProjectFromLocalStorage = () => {
+        const projects = JSON.parse(localStorage.getItem('projectsLibrary')) || [];
+        projectManager.projectsLibrary = projects;
+    }
+
     const renderProjects = () => {
-        clearProjectsDOM();
+        clearProjectsDOM(); //TODO Need to render from localStorage
+        projectManager.clearProjects();
+        loadProjectFromLocalStorage();
         projectManager.projectsLibrary.forEach((project) => {
             const container = document.querySelector('.projects-container');
 
@@ -146,7 +169,7 @@ const domManager = (function DomManager() {
 
     let taskCard;
 
-    const addNewTask = () => {
+    const addNewTask = () => { //TODO Need to add this to localStorage
         const addNewTaskSubmit = document.querySelector('.submit-new-task');
         const submitNewTaskError = document.querySelector('.submit-new-task-error');
 
@@ -164,7 +187,6 @@ const domManager = (function DomManager() {
                 return;
             } else {
                 taskCard = taskManager.newTask(taskInputValue, descriptionInputValue, dueInputValue, priorityInputValue, notesInputValue, statusInputValue);
-                console.log('taskCard', taskCard)
     
                 taskManager.addToProject(domProjectId, taskCard);
                 renderProjects();
