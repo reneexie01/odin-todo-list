@@ -47,8 +47,13 @@ const domManager = (function DomManager() {
         projectManager.projectsLibrary = projects;
     }
 
+    const updateProjectToLocalStorage = () => {
+        let projects = projectManager.projectsLibrary;
+        localStorage.setItem('projectsLibrary', JSON.stringify(projects));
+    }
+
     const renderProjects = () => {
-        clearProjectsDOM(); //TODO Need to render from localStorage
+        clearProjectsDOM();
         projectManager.clearProjects();
         loadProjectFromLocalStorage();
         projectManager.projectsLibrary.forEach((project) => {
@@ -186,6 +191,7 @@ const domManager = (function DomManager() {
                 submitNewTaskError.innerHTML = `Requires at least a task name, description, and due date`;
                 return;
             } else {
+                /*
                 taskCard = taskManager.newTask(taskInputValue, descriptionInputValue, dueInputValue, priorityInputValue, notesInputValue, statusInputValue);
     
                 taskManager.addToProject(domProjectId, taskCard);
@@ -193,6 +199,18 @@ const domManager = (function DomManager() {
                 closeNewTaskModal();
 
                 submitNewTaskError.innerHTML = ``;
+                */
+                taskCard = taskManager.newTask(taskInputValue, descriptionInputValue, dueInputValue, priorityInputValue, notesInputValue, statusInputValue);
+                projectManager.clearProjects();
+                loadProjectFromLocalStorage();
+                taskManager.addToProject(domProjectId, taskCard);
+                console.log(projectManager.projectsLibrary)
+                updateProjectToLocalStorage();
+
+                closeNewTaskModal();
+                submitNewTaskError.innerHTML = ``;
+                renderProjects();
+                console.log(projectManager.projectsLibrary)
             }
         })
     }
@@ -250,7 +268,7 @@ const domManager = (function DomManager() {
         })
     }
 
-    const deleteProject = () => {
+    const deleteProject = () => { //TODO Need to delete from localStorage - this is broken now
         const deleteProjectButton = document.querySelectorAll('.delete-project');
 
         deleteProjectButton.forEach((button) => {
@@ -259,6 +277,7 @@ const domManager = (function DomManager() {
                 let projects = projectManager.removeProject(projectId);
                 projectManager.projectsLibrary = projects;
                 renderProjects();
+                console.log(projectManager.projectsLibrary)
             })
         })
     }
