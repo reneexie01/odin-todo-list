@@ -29,19 +29,22 @@ const taskManager = (function TaskManager() {
     }
 
     const removeTask = (projectId, taskId) => {
-        let project;
-        project = projectManager.projectsLibrary.filter((project) => project.id === projectId);
-        
-        for (let i = 0; i < project[0].tasks.length; i++) {
-            let selectedTask = project[0].tasks[i];
+        let projects = JSON.parse(localStorage.getItem('projectsLibrary')) || [];
+        for (let i = 0; i < projects.length; i++) {
+            if (projects[i].id === projectId) {
+                for (let j = 0; j < projects[i].tasks.length; j++) {
+                    let selectedTask = projects[i].tasks[j];
 
-            if (selectedTask.id === taskId) {
-                project[0].tasks.splice(i, 1);
+                    if (selectedTask.id === taskId) {
+                        projects[i].tasks.splice(j, 1);
+                    }
+                }
             }
         }
+        return projects;
         }
 
-    const editTask = (projectId, taskId) => {
+    const editTask = (projectId, taskId) => { //TODO: Add to localStorage
 
         const taskInput = document.querySelector('#edit-task');
         const descriptionInput = document.querySelector('#edit-description');
@@ -67,7 +70,7 @@ const taskManager = (function TaskManager() {
         }
     }
 
-    const updateTask = (projectId, taskId) => {
+    const updateTask = (projectId, taskId) => { //TODO: Add to localStorage
         const taskInput = document.querySelector('#edit-task');
         const descriptionInput = document.querySelector('#edit-description');
         const dueInput = document.querySelector('#edit-due');

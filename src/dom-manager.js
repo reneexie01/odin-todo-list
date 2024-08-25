@@ -17,13 +17,6 @@ const domManager = (function DomManager() {
                 submitProjectInputError.innerHTML = `Add a project name`
                 return;
             } else {
-                /*
-                projectManager.createProject(newProjectInput.value);
-                projectManager.renderProjects();
-                renderProjects();
-                newProjectInput.value = '';
-                submitProjectInputError.innerHTML = ``;
-                */
                 let newProjectSubmission = projectManager.createProject(newProjectInput.value);
                 console.log('newProjectSubmission', newProjectSubmission)
                 addProjectToLocalStorage(newProjectSubmission);
@@ -174,7 +167,7 @@ const domManager = (function DomManager() {
 
     let taskCard;
 
-    const addNewTask = () => { //TODO Need to add this to localStorage
+    const addNewTask = () => {
         const addNewTaskSubmit = document.querySelector('.submit-new-task');
         const submitNewTaskError = document.querySelector('.submit-new-task-error');
 
@@ -191,15 +184,6 @@ const domManager = (function DomManager() {
                 submitNewTaskError.innerHTML = `Requires at least a task name, description, and due date`;
                 return;
             } else {
-                /*
-                taskCard = taskManager.newTask(taskInputValue, descriptionInputValue, dueInputValue, priorityInputValue, notesInputValue, statusInputValue);
-    
-                taskManager.addToProject(domProjectId, taskCard);
-                renderProjects();
-                closeNewTaskModal();
-
-                submitNewTaskError.innerHTML = ``;
-                */
                 taskCard = taskManager.newTask(taskInputValue, descriptionInputValue, dueInputValue, priorityInputValue, notesInputValue, statusInputValue);
                 projectManager.clearProjects();
                 loadProjectFromLocalStorage();
@@ -262,7 +246,11 @@ const domManager = (function DomManager() {
             button.addEventListener('click', (e) => {
                 projectId = e.target.getAttribute('parent-project-id');
                 taskId = e.target.getAttribute('unique-task-id');
-                taskManager.removeTask(projectId, taskId)
+                projectManager.clearProjects();
+                console.log(projectManager.projectsLibrary)
+                const projects = taskManager.removeTask(projectId, taskId);
+                projectManager.projectsLibrary = projects;
+                updateProjectToLocalStorage();
                 renderProjects();
             })
         })
@@ -277,7 +265,7 @@ const domManager = (function DomManager() {
                 let projects = projectManager.removeProject(projectId);
                 projectManager.projectsLibrary = projects;
                 renderProjects();
-                console.log(projectManager.projectsLibrary)
+                
             })
         })
     }
