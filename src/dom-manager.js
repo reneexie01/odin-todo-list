@@ -233,7 +233,10 @@ const domManager = (function DomManager() {
     const submitEditedTask = () => {
         const submitEditTaskButton = document.querySelector('.submit-edit-task');
         submitEditTaskButton.addEventListener('click', () => {
-            taskManager.updateTask(projectId, taskId);
+            projectManager.clearProjects();
+            const projects = taskManager.updateTask(projectId, taskId);
+            projectManager.projectsLibrary = projects;
+            updateProjectToLocalStorage();
             renderProjects();
             closeEditTaskModal();
         })
@@ -247,7 +250,6 @@ const domManager = (function DomManager() {
                 projectId = e.target.getAttribute('parent-project-id');
                 taskId = e.target.getAttribute('unique-task-id');
                 projectManager.clearProjects();
-                console.log(projectManager.projectsLibrary)
                 const projects = taskManager.removeTask(projectId, taskId);
                 projectManager.projectsLibrary = projects;
                 updateProjectToLocalStorage();

@@ -44,7 +44,7 @@ const taskManager = (function TaskManager() {
         return projects;
         }
 
-    const editTask = (projectId, taskId) => { //TODO: Add to localStorage
+    const editTask = (projectId, taskId) => { // Gets the values and pre-fills them in the editTask module
 
         const taskInput = document.querySelector('#edit-task');
         const descriptionInput = document.querySelector('#edit-description');
@@ -70,7 +70,7 @@ const taskManager = (function TaskManager() {
         }
     }
 
-    const updateTask = (projectId, taskId) => { //TODO: Add to localStorage
+    const updateTask = (projectId, taskId) => { 
         const taskInput = document.querySelector('#edit-task');
         const descriptionInput = document.querySelector('#edit-description');
         const dueInput = document.querySelector('#edit-due');
@@ -78,21 +78,25 @@ const taskManager = (function TaskManager() {
         const notesInput = document.querySelector('#edit-notes');
         const statusInput = document.querySelector('#edit-status');
 
-        let project;
-        project = projectManager.projectsLibrary.filter((project) => project.id === projectId);
-
-        for (let i = 0; i < project[0].tasks.length; i++) {
-            let selectedTask = project[0].tasks[i];
-
-            if (selectedTask.id === taskId) {
-                selectedTask.task = taskInput.value;
-                selectedTask.description = descriptionInput.value;
-                selectedTask.due = dueInput.value;
-                selectedTask.priority = priorityInput.value;
-                selectedTask.notes = notesInput.value;
-                selectedTask.status = statusInput.value;
-            } 
-        }
+            let projects = JSON.parse(localStorage.getItem('projectsLibrary')) || [];
+            console.log(projectId, taskId);
+            for (let i = 0; i < projects.length; i++) {
+                if (projects[i].id === projectId) {
+                    for (let j = 0; j < projects[i].tasks.length; j++) {
+                        let selectedTask = projects[i].tasks[j];
+    
+                        if (selectedTask.id === taskId) {
+                            selectedTask.task = taskInput.value;
+                            selectedTask.description = descriptionInput.value;
+                            selectedTask.due = dueInput.value;
+                            selectedTask.priority = priorityInput.value;
+                            selectedTask.notes = notesInput.value;
+                            selectedTask.status = statusInput.value;
+                        }
+                    }
+                }
+            }
+            return projects;
     }
 
     return { newTask, addToProject, clearTaskCard, editTask, updateTask, removeTask }
