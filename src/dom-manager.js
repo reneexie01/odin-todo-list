@@ -13,12 +13,10 @@ const domManager = (function DomManager() {
 
         submitProjectInput.addEventListener('click', () => {
             if (newProjectInput.value === '') {
-                console.log(`Add a project name`)
                 submitProjectInputError.innerHTML = `Add a project name`
                 return;
             } else {
                 let newProjectSubmission = projectManager.createProject(newProjectInput.value);
-                console.log('newProjectSubmission', newProjectSubmission)
                 addProjectToLocalStorage(newProjectSubmission);
                 projectManager.clearProjects();
                 loadProjectFromLocalStorage();
@@ -188,13 +186,11 @@ const domManager = (function DomManager() {
                 projectManager.clearProjects();
                 loadProjectFromLocalStorage();
                 taskManager.addToProject(domProjectId, taskCard);
-                console.log(projectManager.projectsLibrary)
                 updateProjectToLocalStorage();
 
                 closeNewTaskModal();
                 submitNewTaskError.innerHTML = ``;
                 renderProjects();
-                console.log(projectManager.projectsLibrary)
             }
         })
     }
@@ -258,14 +254,16 @@ const domManager = (function DomManager() {
         })
     }
 
-    const deleteProject = () => { //TODO Need to delete from localStorage - this is broken now
+    const deleteProject = () => { //TODO Need to delete from localStorage - this is broken now it deletes everything
         const deleteProjectButton = document.querySelectorAll('.delete-project');
 
         deleteProjectButton.forEach((button) => {
             button.addEventListener('click', (e) => {
                 projectId = e.target.getAttribute('unique-project-id');
-                let projects = projectManager.removeProject(projectId);
+                const projects = projectManager.removeProject(projectId);
+                projectManager.clearProjects();
                 projectManager.projectsLibrary = projects;
+                updateProjectToLocalStorage();
                 renderProjects();
                 
             })

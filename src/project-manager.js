@@ -63,9 +63,9 @@ const projectManager = (function ProjectManager() {
     }
 
     const removeProject = (projectId) => {
-        let projects = projectsLibrary.filter((project) => project.id !== projectId);
-        projectsLibrary = projects;
-        return projectsLibrary;
+        let projects = JSON.parse(localStorage.getItem('projectsLibrary')) || [];
+        projects = projects.filter((project) => project.id !== projectId);
+        return projects;
     }
 
     const clearProjects = () => {
