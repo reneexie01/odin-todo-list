@@ -3,9 +3,8 @@ export { projectManager };
 import { toolsManager } from "./tools";
 
 const projectManager = (function ProjectManager() {
-    
-    let projectsLibrary = [
-        /*
+  let projectsLibrary = [
+    /*
         {
             'id' : '_e4a63i5w4',
             'name' : 'Project0',
@@ -46,31 +45,37 @@ const projectManager = (function ProjectManager() {
             ],
         }
             */
-    ];
+  ];
 
-    let project = {};
+  let project = {};
 
-    const renderProjects = () => console.log(projectsLibrary);
+  const renderProjects = () => console.log(projectsLibrary);
 
-    const createProject = (name) => {
-        project = {
-            'id' : toolsManager.generateUniqueId(),
-            'name' : name,
-            'tasks' : []
-        }
-        projectsLibrary.push(project);
-        return project;
-    }
+  const createProject = (name) => {
+    project = {
+      id: toolsManager.generateUniqueId(),
+      name: name,
+      tasks: [],
+    };
+    projectsLibrary.push(project);
+    return project;
+  };
 
-    const removeProject = (projectId) => {
-        let projects = JSON.parse(localStorage.getItem('projectsLibrary')) || [];
-        projects = projects.filter((project) => project.id !== projectId);
-        return projects;
-    }
+  const removeProject = (projectId) => {
+    let projects = JSON.parse(localStorage.getItem("projectsLibrary")) || [];
+    projects = projects.filter((project) => project.id !== projectId);
+    return projects;
+  };
 
-    const clearProjects = () => {
-        projectsLibrary.length = 0;
-    }
+  const clearProjects = () => {
+    projectsLibrary.length = 0;
+  };
 
-    return { renderProjects, createProject, projectsLibrary, removeProject, clearProjects };
+  return {
+    renderProjects,
+    createProject,
+    projectsLibrary,
+    removeProject,
+    clearProjects,
+  };
 })();

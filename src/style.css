@@ -1,3 +1,4 @@
-.add-tasks-modal, .edit-tasks-modal {
-    display: none;
+.add-tasks-modal,
+.edit-tasks-modal {
+  display: none;
 }
